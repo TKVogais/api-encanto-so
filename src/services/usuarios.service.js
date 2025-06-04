@@ -16,43 +16,10 @@ class UsuariosService {
 
     async create(usuario, senha) {
 
-        let response
+    }
 
-        response = await TryCatch(async () => {
-            return await this.repository.findLoteSemanas(semana_corte, semana_colheita)
-        })
-
-        if (response.data) {
-            return {
-                statusRequest: 200,
-                statusResonse: 401,
-                message: "Já existe um lote de etiquetas com as semanas informadas!",
-                data: response.data
-            }
-        }
-
-
-        response = await TryCatch(async () => {
-            return await this.repository.create(criacao, semana_corte, semana_colheita, etiqueta_inicial, etiqueta_final)
-        })
-
-        if (response.error) {
-            return {
-                statusRequest: 200,
-                statusResonse: 404,
-                message: "Não foi possível cadastrar o lote de etiquetas!",
-                data: response.data
-            }
-        }
-
-
-        return {
-            statusRequest: 200,
-            statusResonse: 200,
-            message: "Lote de Etiquetas cadastrado com sucesso!",
-            data: response.data
-        }
-
+    async list(){
+        
     }
 
     async authenticate(usuario = "", senha = "") {
@@ -101,18 +68,6 @@ class UsuariosService {
         }
     }
 
-    async inicialData(repository) {
-        let [error, data] = [null, null];
-
-        ({ error, data } = await TryCatch(async () => {
-            return await repository.findAll()
-        }));
-
-        let initial = {
-            lotes_etiquetas: error || !data ? [] : data
-        }
-        return initial
-    }
 }
 
 module.exports = UsuariosService
